@@ -44,7 +44,20 @@ main:
         mov rcx, [r1]                  ; rcx = r1
 
 ; ; TODO - Fill code for allocating the matrix into memory, you may use either the stack or heap for this purpose
-; ; Start of your code
+; ; Start of your
+        mul rcx                         ; rax = r1*c1
+        mov rcx, rax                    ; rcx = r1*c1
+        shl rcx, 3                      ; rcx = (r1*c1)8
+
+        mov rax, 9                      ; mmap systemcall number
+        mov rsi, rcx                    ; memory size
+        mov rdx, 0x3                    ; memory property
+        mov r8, -1                      ; file descriptor
+        mov rdi, 0                      ; operating system will chose memory area to be allocated
+        mov r9, 0                       ; offset
+        mov r10, 34                     ; map_anonymus + map_private
+        syscall                         ; syscall for mmap
+        mov [a1], rax                   ; store the pointer to mat1 in a1
 ; ; End of your code
 
         call read_64
@@ -55,6 +68,19 @@ main:
 
 ; ; TODO - Fill code for allocating the matrix into memory, you may use either the stack or heap for this purpose
 ; ; Start of your code
+        mul rcx
+        mov rcx, rax
+        shl rcx, 3
+
+        mov rax, 9
+        mov rsi, rcx
+        mov rdx, 0x3
+        mov r8, -1
+        mov rdi, 0
+        mov r9, 0
+        mov r10, 34
+        syscall
+        mov [a2], rax                   ; store the pointer to mat2 in a2
 ; ; End of your code
 
         mov rax, [c1]                  ; Validity check if matrices can be multiplied
@@ -68,6 +94,19 @@ main:
 
 ; ; TODO - Fill code for allocating the matrix into memory, you may use either the stack or heap for this purpose
 ; ; Start of your code
+        mul rcx 
+        mov rcx, rax
+        shl rcx, 3
+
+        mov rax, 9
+        mov rsi, rcx
+        mov rdx, 0x3
+        mov r8, -1
+        mov rdi, 0
+        mov r9, 0
+        mov r10, 34
+        syscall
+        mov [a3], rax                   ; store the pointer to mat3 in a3                          
 ; ; End of your code
 
 ; Matrix Input format - row major one number at a time for mat1 followed by mat2 !!
